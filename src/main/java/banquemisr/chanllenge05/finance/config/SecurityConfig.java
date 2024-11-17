@@ -62,7 +62,7 @@ public class SecurityConfig {
 //                )
 //                .csrf(AbstractHttpConfigurer::disable); // Disable CSRF protection
 
-        http.csrf(csrf->csrf.disable()).authorizeRequests(auth->auth.requestMatchers("/banquemisr/Login/**").permitAll().anyRequest().authenticated())
+        http.csrf(csrf->csrf.disable()).authorizeRequests(auth->auth.requestMatchers("/banquemisr/Login/**","/banquemisr/api/**").permitAll().anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter,UsernamePasswordAuthenticationFilter.class);
