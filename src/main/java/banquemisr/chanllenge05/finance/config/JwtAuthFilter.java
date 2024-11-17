@@ -43,10 +43,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         jwtToken = authHeader.substring(7);
         username= jwtUtil.extractUsername(jwtToken);
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-//            FusersEntity userDetails = fuserRepo.findByUsername(username);
-            UserDetails userDetails = userDao.findUserByEmail(username);
+            FusersEntity userDetails = fuserRepo.findByUsername(username);
+//            UserDetails userDetails = userDao.findUserByEmail(username);
             if(jwtUtil.validateToken(jwtToken, userDetails)) {
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,null,null);
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }

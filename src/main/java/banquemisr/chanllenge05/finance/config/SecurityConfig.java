@@ -55,13 +55,6 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http
-//                .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/**/banquemisr/Login/**", "/**/banquemisr/api/**").permitAll() // Allow access to specific URLs
-//                        .anyRequest().denyAll() // Require authentication for any other request
-//                )
-//                .csrf(AbstractHttpConfigurer::disable); // Disable CSRF protection
-
         http.csrf(csrf->csrf.disable()).authorizeRequests(auth->auth.requestMatchers("/banquemisr/Login/**","/banquemisr/api/**").permitAll().anyRequest().authenticated())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
